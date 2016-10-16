@@ -42,7 +42,7 @@ do
 		if [[ $fileType =~ .*ELF.* ]]
 		then
 			echo "$file has native lib $libname, add it into the list"
-			echo $file >> $OUTPUT_FILE
+			echo $filename >> $OUTPUT_FILE
 			break
 		fi
 	done
