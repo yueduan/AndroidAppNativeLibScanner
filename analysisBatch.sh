@@ -7,8 +7,12 @@ APKTOOL_DIR=$CURR_DIR/apktool
 OUTPUT_DIR=$CURR_DIR/output
 OUTPUT_FILE=$OUTPUT_DIR/outputList
 
-
-if [ "$1" != "" ]; then
+if [ "$INPUT_DIR" != "" ]; then
+	if [[ $INPUT_DIR == */ ]];
+	then
+		echo "Please do not add '/' at the end of input directory"
+		exit
+	fi
 	echo "Begin analyzing all the $APKEXT files in INPUT DIRECTORY ($INPUT_DIR)"
 else
 	echo "Forget input directory?"
@@ -33,9 +37,11 @@ do
 	cd $OUTPUT_DIR/$file
 	for f in $(find . *); 
 	do 
+		libname=$(basename $f)
 		fileType=$(file $f)
 		if [[ $fileType =~ .*ELF.* ]]
 		then
+			echo "$file has native lib $libname, add it into the list"
 			echo $file >> $OUTPUT_FILE
 			break
 		fi
