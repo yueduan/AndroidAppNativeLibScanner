@@ -7,4 +7,4 @@ After analyzing everything, there should be an output list file with all the apk
 
 Sample Usage:
 
-./analysisBatch.sh ~/yueduan/bbnAnalysis/apks
+./analysisBatch.sh /PATH-TO-APK-DIR
