@@ -31,7 +31,7 @@ do
 	filename=$(basename $file)
 	file=$(basename $file $APKEXT)
 
-	$APKTOOL_DIR/apktool d -f -s -r $INPUT_DIR/$filename
+	$APKTOOL_DIR/apktool d -s -r $INPUT_DIR/$filename
 
 	# list all files within one app and test if any of them is an ELF file
 	cd $OUTPUT_DIR/$file
