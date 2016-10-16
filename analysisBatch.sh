@@ -29,6 +29,7 @@ do
 
 	$APKTOOL_DIR/apktool d -f -s -r $INPUT_DIR/$filename
 
+	# list all files within one app and test if any of them is an ELF file
 	cd $OUTPUT_DIR/$file
 	for f in $(find . *); 
 	do 
@@ -36,7 +37,7 @@ do
 		if [[ $fileType =~ .*ELF.* ]]
 		then
 			echo $file >> $OUTPUT_FILE
-			break;
+			break
 		fi
 	done
 done
