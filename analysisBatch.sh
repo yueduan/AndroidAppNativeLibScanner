@@ -28,5 +28,15 @@ do
 	file=$(basename $file $APKEXT)
 
 	$APKTOOL_DIR/apktool d -f -s -r $INPUT_DIR/$filename
+
+	cd $OUTPUT_DIR/$file
+	for f in $(find . *); 
+	do 
+		fileType=$(file $f)
+		if [[ $fileType =~ .*ELF.* ]]
+		then
+			echo $file >> $OUTPUT_FILE
+		fi
+	done
 done
 
