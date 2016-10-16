@@ -36,6 +36,7 @@ do
 		if [[ $fileType =~ .*ELF.* ]]
 		then
 			echo $file >> $OUTPUT_FILE
+			break;
 		fi
 	done
 done
