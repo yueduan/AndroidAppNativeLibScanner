@@ -31,11 +31,12 @@ do
 	filename=$(basename $file)
 	file=$(basename $file $APKEXT)
 
-	$APKTOOL_DIR/apktool d -s -r $INPUT_DIR/$filename
+	echo "Dissecting $filename ..."
+	apkRet=$($APKTOOL_DIR/apktool d -s -r $INPUT_DIR/$filename)
 
 	# list all files within one app and test if any of them is an ELF file
 	cd $OUTPUT_DIR/$file
-	for f in $(find . *); 
+	for f in $(find . -type f ! -iname "*.smali" ! -iname "*.xml" ! -iname "*.png"); 
 	do 
 		libname=$(basename $f)
 		fileType=$(file $f)
@@ -47,4 +48,3 @@ do
 		fi
 	done
 done
-
