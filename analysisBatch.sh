@@ -7,6 +7,9 @@ APKTOOL_DIR=$CURR_DIR/apktool
 OUTPUT_DIR=$CURR_DIR/output
 OUTPUT_FILE=$OUTPUT_DIR/outputList
 
+
+LIMIT=100
+
 if [ "$INPUT_DIR" != "" ]; then
 	if [[ $INPUT_DIR == */ ]];
 	then
@@ -36,8 +39,16 @@ do
 
 	# list all files within one app and test if any of them is an ELF file
 	cd $OUTPUT_DIR/$file
-	for f in $(find . -type f ! -iname "*.smali" ! -iname "*.xml" ! -iname "*.png"); 
-	do 
+
+	COUNTER=0
+	for f in $(find . -type f ! -iname "*.smali" ! -iname "*.xml" ! -iname "*.png" ! -iname "*.txt"); 
+	do
+		let COUNTER=COUNTER+1
+		if [ $COUNTER -eq $LIMIT ]
+		then
+			break
+		fi
+
 		libname=$(basename $f)
 		fileType=$(file $f)
 		if [[ $fileType =~ .*ELF.* ]]
