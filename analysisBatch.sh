@@ -8,7 +8,7 @@ OUTPUT_DIR=$CURR_DIR/output
 OUTPUT_FILE=$OUTPUT_DIR/outputList
 
 
-LIMIT=100
+LIMIT=200
 
 if [ "$INPUT_DIR" != "" ]; then
 	if [[ $INPUT_DIR == */ ]];
@@ -43,9 +43,16 @@ do
 	COUNTER=0
 	for f in $(find . -type f ! -iname "*.smali" ! -iname "*.xml" ! -iname "*.png" ! -iname "*.txt"); 
 	do
+		# In case some file names contain white space
+		if [[ $f != ./* ]];
+		then
+			continue
+		fi
+
 		let COUNTER=COUNTER+1
 		if [ $COUNTER -eq $LIMIT ]
 		then
+			echo "$filename has more than $LIMIT files, skip"
 			break
 		fi
 
@@ -59,3 +66,5 @@ do
 		fi
 	done
 done
+
+echo "Finished"
